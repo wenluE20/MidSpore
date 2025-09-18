@@ -1,0 +1,239 @@
+# ===============================================================================================
+# The following shows the last analyze fail log message.
+# ===============================================================================================
+
+----------------------------------------------------
+- Caught exception:
+----------------------------------------------------
+External object has no attribute down_sample
+
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore\ccsrc\pipeline\jit\ps\static_analysis\prim.cc:1998 mindspore::abstract::`anonymous-namespace'::GetEvaluatedValueForNameSpaceString
+
+----------------------------------------------------
+- The Traceback of Net Construct Code:
+----------------------------------------------------
+# 0 In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53
+        if self.add_cast_fp32:
+# 1 In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:795, 18~37
+        outputs = self._network(data)
+                  ^~~~~~~~~~~~~~~~~~~
+# 2 In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188, 11~27
+        if self.down_sample is not None:
+           ^~~~~~~~~~~~~~~~
+
+# ===============================================================================================
+# The following shows the IR when the function graphs evaluation fails to help locate the problem.
+# You can search the last ------------------------> to the node which is evaluated failure.
+# Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
+# ===============================================================================================
+
+# IR entry: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121
+# Total subgraphs: 0
+
+# Attrs:
+training: 0
+
+# Total params: 2
+# Params:
+%para1_data: <null>
+%para2_label: <null>
+
+subgraph attr:
+training: 0
+subgraph instance: mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121 : 000001A20FD52C60
+# In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:794~800, 4~35/    def construct(self, data, label):/
+subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121() {
+  %0(CNode_125) = resolve(NameSpace[Entry: 'mindspore.nn.wrap.cell_wrapper.WithEvalCell.construct'], mindspore.nn.wrap.cell_wrapper.WithEvalCell.construct)
+      : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+      #scope: (Default)
+
+#------------------------> 0
+  %1(CNode_126) = %0(%para1_data, %para2_label)
+      : (<Tensor[Float32], (32, 3, 224, 224)>, <Tensor[Int32], (32)>) -> (<null>)
+      #scope: (Default)
+  Return(%1)
+      : (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53/        if self.add_cast_fp32:/
+}
+# Order:
+#   1: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_125{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> Entry: 'mindspore.nn.wrap.cell_wrapper.WithEvalCell.construct', [2]: ValueNode<Symbol> mindspore.nn.wrap.cell_wrapper.WithEvalCell.construct}
+#   2: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_126{[0]: CNode_125, [1]: param_data, [2]: param_label}
+#   3: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_127{[0]: ValueNode<Primitive> Return, [1]: CNode_126}
+
+
+subgraph attr:
+training: 0
+subgraph instance: mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121 : 000001A20FD526D0
+# In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:794~800, 4~35/    def construct(self, data, label):/
+subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121(%para0_data, %para0_label) {
+
+#------------------------> 1
+  %0(CNode_128) = call @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122()
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53/        if self.add_cast_fp32:/
+  Return(%0)
+      : (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53/        if self.add_cast_fp32:/
+}
+# Order:
+#   1: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_129{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:mindspore.nn.wrap.cell_wrapper..<WithEvalCell::1797424966608>', [2]: ValueNode<Symbol> _network}
+#   2: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_130{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   4: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:outputs{[0]: CNode_129, [1]: param_data}
+#   5: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_128{[0]: ValueNode<FuncGraph> mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122}
+#   6: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:CNode_127{[0]: ValueNode<Primitive> Return, [1]: CNode_128}
+
+
+subgraph attr:
+training: 0
+subgraph instance: mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122 : 000001A20FD51BB0
+# In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:794~800, 4~35/    def construct(self, data, label):/
+subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122 parent: [subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121]() {
+
+#------------------------> 2
+  %0(CNode_131) = call @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123()
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53/        if self.add_cast_fp32:/
+  Return(%0)
+      : (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:796~798, 8~53/        if self.add_cast_fp32:/
+}
+# Order:
+#   1: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122:CNode_131{[0]: ValueNode<FuncGraph> mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123}
+#   2: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_122:CNode_132{[0]: ValueNode<Primitive> Return, [1]: CNode_131}
+
+
+subgraph attr:
+training: 0
+subgraph instance: mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123 : 000001A20FD50B00
+# In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:794~800, 4~35/    def construct(self, data, label):/
+subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123 parent: [subgraph @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121]() {
+  %0(CNode_133) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], MakeTuple)
+      : (<External, NoShape>, <External, NoShape>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:800, 15~35/        return loss, outputs, label/
+  %1(CNode_134) = resolve(NameSpace[ClassMember: 'Namespace:mindspore.nn.wrap.cell_wrapper..<WithEvalCell::1797424966608>'], _loss_fn)
+      : (<External, NoShape>, <External, NoShape>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:799, 15~28/        loss = self._loss_fn(outputs, label)/
+  %2(CNode_129) = resolve(NameSpace[ClassMember: 'Namespace:mindspore.nn.wrap.cell_wrapper..<WithEvalCell::1797424966608>'], _network)
+      : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:795, 18~31/        outputs = self._network(data)/
+
+#------------------------> 3
+  %3(outputs) = %2(%para0_data)
+      : (<Tensor[Float32], (32, 3, 224, 224)>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:795, 18~37/        outputs = self._network(data)/
+  %4(loss) = %1(%3, $(@mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:para0_label))
+      : (<null>, <Tensor[Int32], (32)>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:799, 15~44/        loss = self._loss_fn(outputs, label)/
+  %5(CNode_135) = %0(%4, %3, $(@mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_121:para0_label))
+      : (<null>, <null>, <Tensor[Int32], (32)>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:800, 15~35/        return loss, outputs, label/
+  Return(%5)
+      : (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:800, 8~35/        return loss, outputs, label/
+}
+# Order:
+#   1: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:CNode_134{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:mindspore.nn.wrap.cell_wrapper..<WithEvalCell::1797424966608>', [2]: ValueNode<Symbol> _loss_fn}
+#   2: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:CNode_136{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   4: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:loss{[0]: CNode_134, [1]: outputs, [2]: param_label}
+#   5: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:CNode_133{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   6: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:CNode_135{[0]: CNode_133, [1]: loss, [2]: outputs, [3]: param_label}
+#   7: @mindspore_nn_wrap_cell_wrapper_WithEvalCell_construct_123:CNode_137{[0]: ValueNode<Primitive> Return, [1]: CNode_135}
+
+
+subgraph attr:
+training: 0
+subgraph instance: __main___ResNet_construct_124 : 000001A20FD53D10
+# In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:176~194, 4~18/    def construct(self, x):/
+subgraph @__main___ResNet_construct_124(%para0_identity) {
+  %0(CNode_138) = resolve(NameSpace[Ast: 'Namespace:mindspore._extends.parse.trope'], is_not)
+      : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188, 11~39/        if self.down_sample is not None:/
+
+#------------------------> 4
+  %1(CNode_139) = resolve(NameSpace[ClassMember: 'Namespace:__main__..<ResNet::1797307038592>'], down_sample)
+      : (<External, NoShape>, <External, NoShape>) -> (<null>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188, 11~27/        if self.down_sample is not None:/
+  %2(CNode_140) = %0(%1, None)
+      : (<null>, <null>) -> (<null>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188, 11~39/        if self.down_sample is not None:/
+  %3(CNode_141) = Cond(%2, Bool(0))
+      : (<null>, <null>) -> (<null>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188~189, 8~42/        if self.down_sample is not None:/
+  %4(CNode_142) = Switch(%3, @__main___ResNet_construct_143, @__main___ResNet_construct_144)
+      : (<null>, <null>, <null>) -> (<null>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188~189, 8~42/        if self.down_sample is not None:/
+  %5(CNode_145) = %4()
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188~189, 8~42/        if self.down_sample is not None:/
+  %6(CNode_146) = call @__main___ResNet_construct_147(%5)
+      : (<null>) -> (<null>)
+      #scope: (Default)
+      # In file D:\miniconda\envs\MindSpore2.2\lib\site-packages\mindspore\nn\wrap\cell_wrapper.py:795, 18~31/        outputs = self._network(data)/
+  Return(%6)
+      : (<null>)
+      #scope: (Default/_network-ResNet)
+      # In file c:\Users\22764\Desktop\exps_clubs\MindSpore\exp4\lab4-2.py:188~189, 8~42/        if self.down_sample is not None:/
+}
+# Order:
+#   1: @__main___ResNet_construct_124:CNode_148{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> conv1}
+#   2: @__main___ResNet_construct_124:CNode_149{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   4: @__main___ResNet_construct_124:out{[0]: CNode_148, [1]: param_identity}
+#   5: @__main___ResNet_construct_124:CNode_150{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> norm1}
+#   6: @__main___ResNet_construct_124:CNode_151{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   8: @__main___ResNet_construct_124:out{[0]: CNode_150, [1]: out}
+#   9: @__main___ResNet_construct_124:CNode_152{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> relu}
+#  10: @__main___ResNet_construct_124:CNode_153{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  12: @__main___ResNet_construct_124:out{[0]: CNode_152, [1]: out}
+#  13: @__main___ResNet_construct_124:CNode_154{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> conv2}
+#  14: @__main___ResNet_construct_124:CNode_155{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  16: @__main___ResNet_construct_124:out{[0]: CNode_154, [1]: out}
+#  17: @__main___ResNet_construct_124:CNode_156{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> norm2}
+#  18: @__main___ResNet_construct_124:CNode_157{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  20: @__main___ResNet_construct_124:out{[0]: CNode_156, [1]: out}
+#  21: @__main___ResNet_construct_124:CNode_158{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> relu}
+#  22: @__main___ResNet_construct_124:CNode_159{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  24: @__main___ResNet_construct_124:out{[0]: CNode_158, [1]: out}
+#  25: @__main___ResNet_construct_124:CNode_160{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> conv3}
+#  26: @__main___ResNet_construct_124:CNode_161{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  28: @__main___ResNet_construct_124:out{[0]: CNode_160, [1]: out}
+#  29: @__main___ResNet_construct_124:CNode_162{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> norm3}
+#  30: @__main___ResNet_construct_124:CNode_163{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  32: @__main___ResNet_construct_124:out{[0]: CNode_162, [1]: out}
+#  33: @__main___ResNet_construct_124:CNode_139{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<ResNet::1797307038592>', [2]: ValueNode<Symbol> down_sample}
+#  34: @__main___ResNet_construct_124:CNode_138{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> Ast: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> is_not}
+#  35: @__main___ResNet_construct_124:CNode_140{[0]: CNode_138, [1]: CNode_139, [2]: ValueNode<None> None}
+#  36: @__main___ResNet_construct_124:CNode_141{[0]: ValueNode<Primitive> Cond, [1]: CNode_140, [2]: ValueNode<BoolImm> false}
+#  37: @__main___ResNet_construct_124:CNode_142{[0]: ValueNode<Primitive> Switch, [1]: CNode_141, [2]: ValueNode<FuncGraph> __main___ResNet_construct_143, [3]: ValueNode<FuncGraph> __main___ResNet_construct_144}
+#  38: @__main___ResNet_construct_124:CNode_145{[0]: CNode_142}
+#  39: @__main___ResNet_construct_124:CNode_146{[0]: ValueNode<FuncGraph> __main___ResNet_construct_147, [1]: CNode_145}
+#  40: @__main___ResNet_construct_124:CNode_164{[0]: ValueNode<Primitive> Return, [1]: CNode_146}
+
+
+# ===============================================================================================
+# The total of function graphs in evaluation stack: 5
+# ===============================================================================================
+
+
+# ===============================================================================================
+# The rest function graphs are the following:
+# ===============================================================================================
+No more function graphs.
+
